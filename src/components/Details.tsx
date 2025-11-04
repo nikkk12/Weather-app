@@ -23,7 +23,7 @@ export default function Details({maxTemp , minTemp ,cloudy,humidity ,wind,search
  const maxRange = "[@media_(min-width:1050px)_and_(max-width:1736px)]"
 
   return (
-    <div className="flex flex-col items-center border-b-2 border-white bg-cover bg-center backdrop-blur-md  bg-white/15 p-8 shadow-lg   [@media_(min-width:1050px)_and_(max-width:1736px)]:absolute top-0 right-0  [@media_(min-width:1050px)_and_(max-width:1736px)]:gap-5 [@media_(min-width:1050px)_and_(max-width:1736px)]:h-screen [@media_(min-width:1050px)_and_(max-width:1736px)]:border-none ">
+    <div className="flex flex-col items-center  border-white bg-cover bg-center backdrop-blur-md  bg-white/15 p-9.5 shadow-lg   [@media_(min-width:1050px)_and_(max-width:1736px)]:absolute top-0 right-0  [@media_(min-width:1050px)_and_(max-width:1736px)]:gap-5 [@media_(min-width:1050px)_and_(max-width:1736px)]:h-screen [@media_(min-width:1050px)_and_(max-width:1736px)]:border-none ">
         <DesktopSearch searchCity={searchCity} setCity={setCity} city={city} getWeather={getWeather} />
         <h2 className="text-amber-50 mt-10 [@media_(min-width:1050px)_and_(max-width:1736px)]:self-start"> Weather Details...</h2>
         <h1 className="text-amber-50 m-4 [@media_(min-width:1050px)_and_(max-width:1736px)]:self-start ml-0 ">{condition}</h1>
