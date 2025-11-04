@@ -1,4 +1,5 @@
 'use client'
+
 import Details from "@/components/Details";
 import Logo from "@/components/Logo";
 import Search from "@/components/Search";

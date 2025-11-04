@@ -34,12 +34,12 @@ export default function Search({searchCity , city , getWeather,setCity } : PropT
          const res = await axios.get(
            `https://api.weatherapi.com/v1/search.json?key=196cbe371f1c40f9ba3113741241402&q=${value}`
          );
-         setSuggestions(res.data);
+         setSuggestions(res.data)
        } catch (err) {
          console.error("Autocomplete error:", err);
        }
      } else {
-       setSuggestions([]);
+       setSuggestions([])
      }
    };
  
@@ -48,7 +48,7 @@ export default function Search({searchCity , city , getWeather,setCity } : PropT
      setSuggestions([]);
      getWeather();
      setCity('')
-   };
+   }
  
    useEffect(() => {
     const handleClickOutside = (e : MouseEvent) => {

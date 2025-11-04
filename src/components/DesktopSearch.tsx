@@ -70,7 +70,8 @@ export default function DesktopSearch({searchCity , city , getWeather,setCity } 
         onChange={(e) => {handleChange(e); searchCity(e)}}
         onKeyDown={(e) => {
           if (e.key === "Enter") {5
-            getWeather();    
+            getWeather();   
+            setShow(true) 
             setCity('');     
           }
         }}
