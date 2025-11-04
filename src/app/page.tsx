@@ -1,66 +1,88 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import Details from "@/components/Details";
+import Logo from "@/components/Logo";
+import Search from "@/components/Search";
+import Temp from "@/components/Temp";
+import axios from "axios";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 
 export default function Home() {
+
+  const [response,setResponse] = useState<any>()
+  const [city,setCity] = useState<string>('')
+  const [error,setError] = useState<boolean>(false)
+
+
+  const searchCity = (e: { target: { value: SetStateAction<string>; }; }) => {
+  setError(false)  
+  setCity(e.target.value)
+  }  
+
+  const getWeather = async () => {
+    try {
+      const res = await axios.get(`/api/weather?city=${city}`)
+      setResponse(res.data)
+      console.log(res.data)
+    } catch (err) {
+      console.error("Frontend fetch error:", err)
+      setError(true)
+    }
+  }
+
+  useEffect(() => {
+    getWeather()
+  } , [])
+
+  console.log(error)
+
+  const getHourlyCloud = (forecastDay: any) => {
+    const hours = [9, 15, 18, 21];
+    const result: Record<number, number | null> = {}
+  
+    hours.forEach(h => {
+      const hourData = forecastDay?.hour?.find(
+        (hour: any) => new Date(hour.time).getHours() === h
+      );
+      result[h] = hourData ? Math.floor(hourData.cloud) : null
+    });
+  
+    return result
+  };
+
+  const hourlyCloud = getHourlyCloud(response?.forecast?.forecastday[0]) 
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+     <>
+    <div 
+     className="   relative w-full h-screen bg-cover bg-center bg-[url('/bg-weather.svg')] [@media_(min-width:747px)_and_(max-width:1050px)]:bg-[url('/tablet-bg.svg')]  [@media_(min-width:1050px)_and_(max-width:1736px)]:bg-[url('/bg-desktop.svg')]  "  >
+     <div className="flex justify-between p-7">
+      <Logo />
+      <Search 
+      setCity={setCity}
+      searchCity={searchCity} city={city} getWeather={getWeather}/>
+     </div>
+     {error && (<p className="text-red-600 flex absolute right-7 top-13">City not found</p>)}
+     <Temp 
+     localTime={response?.location?.localtime}
+     cityName={response?.location?.name}
+     temp={Math.floor(response?.current?.temp_c)}/>
+    <Details
+     maxTemp={Math.floor(response?.forecast?.forecastday[0]?.day?.maxtemp_c)}
+     minTemp={Math.floor(response?.forecast?.forecastday[0]?.day?.mintemp_c)}
+     humidity={Math.floor(response?.current?.humidity)}
+     cloudy={Math.floor(response?.forecast?.forecastday[0]?.hour[0]?.cloud)}
+     wind={Math.floor(response?.current?.wind_kph)}
+     setCity={setCity}
+     searchCity={searchCity}
+     city={city} 
+     getWeather={getWeather}
+     condition={response?.forecast?.forecastday[0]?.hour[0]?.condition?.text}
+     cloud9={hourlyCloud[9]}
+     cloud15={hourlyCloud[15]}
+     cloud18={hourlyCloud[18]}
+     cloud21={hourlyCloud[21]}
+    />
     </div>
+     </>
   );
 }
