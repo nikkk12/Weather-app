@@ -52,10 +52,13 @@ export default function Home() {
 
   const hourlyCloud = getHourlyCloud(response?.forecast?.forecastday[0]) 
 
+  const midRange = "[@media_(min-width:747px)_and_(max-width:1050px)]:"
+  const maxRange = "[@media_(min-width:1050px)_and_(max-width:1736px)]:"
+
   return (
   <div>
     <div 
-     className="flex flex-col relative w-full h-screen bg-cover bg-center bg-[url('/bg-weather.svg')] [@media_(min-width:747px)_and_(max-width:1050px)]:bg-[url('/tablet-bg.svg')]  [@media_(min-width:1050px)_and_(max-width:1736px)]:bg-[url('/bg-desktop.svg')]  "  >
+     className={`flex flex-col relative w-full h-screen bg-cover bg-center bg-[url('/bg-weather.svg')] ${midRange}bg-[url('/tablet-bg.svg')] ${maxRange}bg-[url('/bg-desktop.svg')]`}>
      <div className="flex justify-between p-7">
       <Logo />
       <Search 

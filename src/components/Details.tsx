@@ -20,8 +20,11 @@ type PropType = {
 
 export default function Details({maxTemp , minTemp ,cloudy,humidity ,wind,searchCity,setCity,city,getWeather , condition , cloud9,cloud15,cloud18,cloud21} : PropType) {
 
+  const middleRange = "[@media_(min-width:1px)_and_(max-width:1050px)]:"
+  const maxRange = "[@media_(min-width:1050px)_and_(max-width:1736px)]:"
+
   return (
-    <div className="flex absolute bottom-0 left-1/2 transform -translate-x-1/2 backdrop-blur-md  bg-white/15  shadow-lg justify-self-end w-full flex-col  overflow-hidden items-center  bg-cover bg-center   p-[35.6px] [@media_(min-width:1050px)_and_(max-width:1736px)]:absolute [@media_(min-width:1050px)_and_(max-width:1736px)]:top-0 [@media_(min-width:1050px)_and_(max-width:1736px)]:right-0  [@media_(min-width:1050px)_and_(max-width:1736px)]:gap-5 [@media_(min-width:1050px)_and_(max-width:1736px)]:h-screen [@media_(min-width:1050px)_and_(max-width:1736px)]:border-none ">
+    <div className={`flex absolute bottom-0 ${middleRange}left-1/2 ${middleRange}transform ${middleRange}-translate-x-1/2 backdrop-blur-md  bg-white/15  shadow-lg justify-self-end ${middleRange}w-full flex-col  overflow-hidden items-center  bg-cover bg-center   p-[35.6px] ${maxRange}absolute ${maxRange}top-0 ${maxRange}right-0  ${maxRange}gap-5 ${maxRange}h-screen ${maxRange}border-none`}>
         <DesktopSearch searchCity={searchCity} setCity={setCity} city={city} getWeather={getWeather} />
         <h2 className="text-amber-50 mt-6 [@media_(min-width:1050px)_and_(max-width:1736px)]:self-start"> Weather Details...</h2>
         <h1 className="text-amber-50 m-4 [@media_(min-width:1050px)_and_(max-width:1736px)]:self-start ml-0 ">{condition}</h1>

@@ -61,10 +61,13 @@ export default function DesktopSearch({searchCity , city , getWeather,setCity } 
     }
   } , [])
 
+  const midRange = "[@media_(min-width:747px)_and_(max-width:1050px)]:"
+  const maxRange = "[@media_(min-width:1050px)_and_(max-width:1736px)]:"
+
   return (
     <div 
     ref={wrapperRef}
-    className="border-b hidden border-[#ffffff]  w-[250px] h-12 [@media_(min-width:747px)_and_(max-width:1050px)]:w-[350px] justify-between  [@media_(min-width:1050px)_and_(max-width:1736px)]:flex self-start  ">
+    className={`border-b hidden border-[#ffffff] w-[250px] h-12 ${midRange}w-[350px] justify-between ${maxRange}flex self-start`}>
         <input
         value={city}
         onChange={(e) => {handleChange(e); searchCity(e)}}
