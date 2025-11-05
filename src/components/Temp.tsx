@@ -22,7 +22,7 @@ export default function Temp({temp , cityName ,localTime } : PropType) {
         className="flex self-end"
          src="/Cloudy.svg"
          alt="cloudy"
-         width={60}
+         width={40}
          height={40}
         />
         </div>
