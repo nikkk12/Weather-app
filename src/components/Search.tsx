@@ -63,12 +63,10 @@ export default function Search({searchCity , city , getWeather,setCity } : PropT
     }
    } , [])
 
-   const midRange = "[@media_(min-width:747px)_and_(max-width:1050px)]:"
-
   return (
     <div
     ref={wraperRef}
-    className={`border-b flex border-[#ffffff] h-5 ${midRange}w-[350px] justify-between`}>
+    className=" border-b flex border-[#ffffff]   h-5  [@media_(min-width:747px)_and_(max-width:1050px)]:w-[350px] justify-between [@media_(min-width:1050px)_and_(max-width:1736px)]">
     <input
       type="text"
       value={city}
